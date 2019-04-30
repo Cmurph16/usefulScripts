@@ -4,14 +4,14 @@ import string
 import random
 from argparse import ArgumentParser
 
-letters = string.letters
+letters = string.ascii_letters
 numbers = '0123456789'
 specialChars = '."?!@#$&*()'
 allCharacters = letters+numbers+specialChars
 
 def createPassword(length):
     passwd = ''
-    for i in range(length):
+    for _ in range(length):
         passwd += (random.choice(allCharacters))
     return passwd
 
