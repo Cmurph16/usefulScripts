@@ -1,0 +1,7 @@
+A repository of useful scripts
+
+Script: passgen.py
+    - Allows you to generate good passwords.
+    - Inputs:
+        -l : length | not required
+            Supply a length to the password. If none is given than length will be some number between 17 and 33
