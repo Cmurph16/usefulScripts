@@ -9,14 +9,13 @@ Script: passgen.py
 Script: encryptDecrypt.py
     - Allows you to encrypt and decrypt files
     - Inputs:
-        -e : encrypt flag
+        -k : key for encryption/decryption | - Required - 
+        -e : encrypt flag | not required
             Include -t or -f to specify what to encrypt
-        -t : text to encrypt
-        -f : file to encrypt
-        -d : decrypt flag
+        -t : text to encrypt | for -e, either -t or -f is required
+        -f : file to encrypt | for -e, either -t or -f is required
+        -d : decrypt flag | not required
             Put file to decrypt after
-
-
 
 Shellscript: makeScriptsExec.Shellscript
     - Moves the other python scripts to /usr/local/bin and makes them executable

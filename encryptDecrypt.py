@@ -10,16 +10,12 @@ def make16Bytes(text):
         text += ' '*(16-(size%16))
     return text
 
-def encrypt(text):
-    # DO NOT USE THIS AS THE KEY. IT IS TEMPORARY IN ORDER TO PROVIDE ONE THAT WORKS
-    # KEY NEEDS TO BE 16 BYTES
-    key = 'zzzzzzzzzzzzzzzz'
+def encrypt(text, key):
     cip= AES.new(key, AES.MODE_ECB, iv)
     msg = cip.encrypt(iv+make16Bytes(text))
     return msg
 
-def decrypt(text):
-    key = 'zzzzzzzzzzzzzzzz'
+def decrypt(text, key):
     iv=text[:16]
     cip= AES.new(key, AES.MODE_ECB, iv)
     msg = cip.decrypt(text[16:])
@@ -31,9 +27,12 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--decrypt', help='decrypt files', type=FileType('r'), default=None, dest='decrypt')
     parser.add_argument('-t', '--text', help='text to encrypt', nargs='*', dest='text',default=None)
     parser.add_argument('-f', '--file', help='inputted file to encrypt', type=FileType('r'), default=None, dest='file')
+    parser.add_argument('-k', '--key', help='key for encryption and decryption', dest='key',required=True)
     args=parser.parse_args()
     if not (args.encrypt or args.decrypt != None):
         parser.error('No action requested. Either -e or -d is necessary')
+    if(len(args.key)%16 != 0):
+        parser.error('Key used must be divisible by 16')
     if (args.encrypt):
         if (args.file != None and args.text != None):
             parser.error('Cannot input both file and text. Select one or the other')
@@ -45,7 +44,7 @@ if __name__ == '__main__':
             inp = ''.join(args.text)
         iv = Random.new().read(AES.block_size)
         outfile = open('encryptedOutput', 'w')
-        outfile.write(encrypt(inp))
+        outfile.write(encrypt(inp, args.key))
     else:
         outfile = open('decryptedOutput', 'w')
-        outfile.write(decrypt(args.decrypt.read()))
+        outfile.write(decrypt(args.decrypt.read(), args.key))
