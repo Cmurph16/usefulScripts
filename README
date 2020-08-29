@@ -16,6 +16,3 @@ Script: encryptDecrypt.py
         -f : file to encrypt | for -e, either -t or -f is required
         -d : decrypt flag | not required
             Put file to decrypt after
-
-Shellscript: makeScriptsExec.Shellscript
-    - Moves the other python scripts to /usr/local/bin and makes them executable
